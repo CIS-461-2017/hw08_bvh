@@ -99,6 +99,7 @@ bool JSONReader::LoadGeometry(QJsonObject &geometry, QMap<QString, std::shared_p
 
         QString meshName("Unnamed Mesh");
         if(geometry.contains(QString("name"))) meshName = geometry["name"].toString();
+        meshName.append(QString("'s Triangle"));
         for(auto triangle : mesh->faces)
         {
             auto primitive = std::make_shared<Primitive>(triangle);
@@ -111,7 +112,7 @@ bool JSONReader::LoadGeometry(QJsonObject &geometry, QMap<QString, std::shared_p
                     }
                 }
             }
-            primitive->name = meshName.append(QString("'s Triangle"));
+            primitive->name = meshName;
             (*primitives).append(primitive);
         }
         (*drawables).append(mesh);
